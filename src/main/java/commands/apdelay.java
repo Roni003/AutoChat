@@ -6,6 +6,11 @@ import net.minecraft.command.ICommandSender;
 import studio.roni.AutoPit;
 
 public class apdelay extends CommandBase{
+    AutoPit modInstance;
+
+    public apdelay(AutoPit modInstance) {
+        this.modInstance = modInstance;
+    }
 
     /**
      * Gets the name of the command
@@ -45,5 +50,7 @@ public class apdelay extends CommandBase{
         }
         int delay = Integer.parseInt(args[0]);
         System.out.println("new delay: " + args[0]);
+        modInstance.setCommandDelay(delay);
+        modInstance.selfChatMsg("Set delay between commands to: " + args[0]);
     }
 }

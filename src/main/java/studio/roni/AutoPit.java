@@ -32,7 +32,6 @@ public class AutoPit {
     public static final String MODID = "sneaktogglesmod";
     public static final String VERSION = "1.0";
 
-
     Minecraft client = Minecraft.getMinecraft();
 
     boolean modRunning = false;
@@ -48,7 +47,7 @@ public class AutoPit {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
-        ClientCommandHandler.instance.registerCommand((ICommand) new apdelay());
+        ClientCommandHandler.instance.registerCommand((ICommand) new apdelay(this));
     }
 
     @SubscribeEvent
@@ -128,5 +127,9 @@ public class AutoPit {
 
     public void drawText(String text, float x, float y, int col) {
         client.fontRendererObj.drawStringWithShadow(text, x, y, 0xffffff);
+    }
+
+    public void setCommandDelay(int delay) {
+        this.commandDelay = delay;
     }
 }
