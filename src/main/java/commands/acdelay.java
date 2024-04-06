@@ -4,12 +4,12 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.util.EnumChatFormatting;
-import studio.roni.AutoPit;
+import studio.roni.AutoChat;
 
-public class apdelay extends CommandBase{
-    AutoPit modInstance;
+public class acdelay extends CommandBase{
+    AutoChat modInstance;
 
-    public apdelay(AutoPit modInstance) {
+    public acdelay(AutoChat modInstance) {
         this.modInstance = modInstance;
     }
 
@@ -18,7 +18,7 @@ public class apdelay extends CommandBase{
      */
     @Override
     public String getCommandName() {
-        return "apdelay";
+        return "acdelay";
     }
 
     /**
@@ -28,7 +28,7 @@ public class apdelay extends CommandBase{
      */
     @Override
     public String getCommandUsage(ICommandSender sender) {
-        return "/apdelay [delay in ms]";
+        return "/acdelay [delay in ms]";
     }
 
     @Override

@@ -1,5 +1,7 @@
 package studio.roni;
 
+import commands.acdelay;
+import commands.acmsg;
 import net.minecraft.command.ICommand;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -13,7 +15,6 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.Minecraft;
@@ -22,15 +23,13 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.opengl.Display;
 import net.minecraftforge.client.ClientCommandHandler;
 
-import commands.apdelay;
-
 @Mod(
-        modid = AutoPit.MODID,
+        modid = AutoChat.MODID,
         name = "AutoPit",
-        version = AutoPit.VERSION
+        version = AutoChat.VERSION
 )
 
-public class AutoPit {
+public class AutoChat {
     public static final String MODID = "sneaktogglesmod";
     public static final String VERSION = "1.0";
 
@@ -48,7 +47,8 @@ public class AutoPit {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(this);
-        ClientCommandHandler.instance.registerCommand((ICommand) new apdelay(this));
+        ClientCommandHandler.instance.registerCommand((ICommand) new acdelay(this));
+        ClientCommandHandler.instance.registerCommand((ICommand) new acmsg(this));
     }
 
     @SubscribeEvent
@@ -60,7 +60,7 @@ public class AutoPit {
         if (toggledModTimeDiff > 500 && Keyboard.isKeyDown(Keyboard.KEY_J)) {
             modRunning = !modRunning;
             System.out.println("Mod running status: " + modRunning);
-            selfChatMsg("Toggled AutoPit: " + (modRunning ? "Running" : "Off"),
+            selfChatMsg("Toggled AutoChat: " + (modRunning ? "Running" : "Off"),
                     (modRunning ? EnumChatFormatting.GREEN : EnumChatFormatting.RED));
 
             lastModToggled = curTime;
@@ -113,6 +113,7 @@ public class AutoPit {
                     {"AutoPit", modRunning ? "Running" : "Off"},
                     {"FPS", Integer.toString(Minecraft.getDebugFPS())},
                     {"In pit", String.valueOf(inPit)},
+                    {"Chat message", command},
                     {"Delay between commands", Integer.toString(commandDelay) + "ms"}
             };
 
@@ -145,5 +146,9 @@ public class AutoPit {
 
     public void setCommandDelay(int delay) {
         this.commandDelay = delay;
+    }
+
+    public void setCommand(String command) {
+        this.command = command;
     }
 }
