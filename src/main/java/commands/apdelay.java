@@ -3,6 +3,7 @@ package commands;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.util.EnumChatFormatting;
 import studio.roni.AutoPit;
 
 public class apdelay extends CommandBase{
@@ -51,6 +52,6 @@ public class apdelay extends CommandBase{
         int delay = Integer.parseInt(args[0]);
         System.out.println("new delay: " + args[0]);
         modInstance.setCommandDelay(delay);
-        modInstance.selfChatMsg("Set delay between commands to: " + args[0]);
+        modInstance.selfChatMsg("Set delay between commands to: " + args[0], EnumChatFormatting.AQUA);
     }
 }
