@@ -25,13 +25,13 @@ import net.minecraftforge.client.ClientCommandHandler;
 
 @Mod(
         modid = AutoChat.MODID,
-        name = "AutoPit",
+        name = "AutoChat",
         version = AutoChat.VERSION
 )
 
 public class AutoChat {
-    public static final String MODID = "sneaktogglesmod";
-    public static final String VERSION = "1.0";
+    public static final String MODID = "chathelpermod";
+    public static final String VERSION = "1.1";
 
     Minecraft client = Minecraft.getMinecraft();
 
@@ -39,7 +39,6 @@ public class AutoChat {
     long lastModToggled = 0;
     long lastTickTime;
 
-    boolean inPit = false;
     long lastMsgSent = System.currentTimeMillis();
     int commandDelay = 10000; // Delay in ms
     String command = "/play pit";
@@ -75,12 +74,11 @@ public class AutoChat {
         if(!modRunning) return;
         if(System.currentTimeMillis() - lastTickTime < 500) return;
 
-        double playerY = client.thePlayer.posY;
         lastTickTime = System.currentTimeMillis();
 
 
         sayCommandIfTime();
-        System.out.println(playerY);
+
 
 
 
@@ -110,9 +108,8 @@ public class AutoChat {
         try {
             String[][] infoToDraw = {
                     {"Username", client.thePlayer.getName()},
-                    {"AutoPit", modRunning ? "Running" : "Off"},
+                    {"AutoChat", modRunning ? "Running" : "Off"},
                     {"FPS", Integer.toString(Minecraft.getDebugFPS())},
-                    {"In pit", String.valueOf(inPit)},
                     {"Chat message", command},
                     {"Delay between commands", Integer.toString(commandDelay) + "ms"}
             };
@@ -141,7 +138,7 @@ public class AutoChat {
     }
 
     public void setWindowTitle() {
-        if(client.thePlayer != null) Display.setTitle("AutoPit - " + client.thePlayer.getName());
+        if(client.thePlayer != null) Display.setTitle("AutoChat - " + client.thePlayer.getName());
     }
 
     public void setCommandDelay(int delay) {
@@ -150,5 +147,9 @@ public class AutoChat {
 
     public void setCommand(String command) {
         this.command = command;
+    }
+
+    public void readTokens() {
+        String windowsPath = ""; // "C:\Users\ronik\.lunarclient\settings\game\accounts.json"
     }
 }
