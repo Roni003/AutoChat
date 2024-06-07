@@ -51,6 +51,10 @@ public class DiscordWebhook {
         this.embeds.add(embed);
     }
 
+    public void clearEmbeds() {
+        this.embeds.clear();
+    }
+
     public void execute() throws IOException {
         if (this.content == null && this.embeds.isEmpty()) {
             throw new IllegalArgumentException("Set content or add at least one EmbedObject");

