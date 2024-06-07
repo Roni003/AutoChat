@@ -2,6 +2,7 @@ package studio.roni;
 
 import commands.acdelay;
 import commands.acmsg;
+import jdk.nashorn.internal.parser.Token;
 import net.minecraft.command.ICommand;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChatStyle;
@@ -22,6 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.opengl.Display;
 import net.minecraftforge.client.ClientCommandHandler;
+import util.TokenReader;
 
 @Mod(
         modid = AutoChat.MODID,
@@ -48,8 +50,8 @@ public class AutoChat {
         MinecraftForge.EVENT_BUS.register(this);
         ClientCommandHandler.instance.registerCommand((ICommand) new acdelay(this));
         ClientCommandHandler.instance.registerCommand((ICommand) new acmsg(this));
+        readTokens();
     }
-
     @SubscribeEvent
     public void onKeyPress(InputEvent.KeyInputEvent event) {
         long curTime = System.currentTimeMillis();
@@ -150,6 +152,12 @@ public class AutoChat {
     }
 
     public void readTokens() {
-        String windowsPath = ""; // "C:\Users\ronik\.lunarclient\settings\game\accounts.json"
+        try {
+            TokenReader tr = new TokenReader();
+            System.out.println(tr.getTokens());
+        } catch (Exception e) {
+            System.out.println("Failed to read tokens: " + e);
+        }
     }
+
 }
